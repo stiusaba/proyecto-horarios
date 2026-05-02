@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador de Horarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<form method="POST" action="/generar">
+
+    <label>Docentes:</label>
+    <input type="number" name="docentes" required><br><br>
+
+    <label>Cursos:</label>
+    <input type="number" name="cursos" required><br><br>
+
+    <label>Salones:</label>
+    <input type="number" name="salones" required><br><br>
+
+    <button type="submit">Generar Horario</button>
+
+</form>
+
+    {% if horario %}
+        <h2>Total asignaciones: {{ horario|length }}</h2>
+        <table border="1">
+            <tr>
+                <th>Curso</th>
+                <th>Docente</th>
+                <th>Salón</th>
+                <th>Horario</th>
+            </tr>
+            {% for h in horario %}
+            <tr>
+                <td>{{ h.curso }}</td>
+                <td>{{ h.docente }}</td>
+                <td>{{ h.salon }}</td>
+                <td>{{ h.franja }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+</body>
+</html>
